@@ -497,15 +497,6 @@ ELASTICSEARCH_URL=http://localhost:9200
 NODE_ENV=development npm start
 ```
 
-## Next Steps
-
-1. Test all API endpoints using Postman collection
-2. Monitor logs in Kibana
-3. Check message delivery in MongoDB
-4. Experiment with different channels (email, sms, whatsapp)
-5. Test duplicate detection by sending same message twice
-6. Observe retry mechanism by checking delivery service logs
-
 ## Support
 
 If you encounter issues:
