@@ -359,22 +359,6 @@ Elasticsearch
 3. **Centralized Logging**: All logs in Elasticsearch
 4. **Metrics**: Service-level statistics via Logging Service API
 
-## Security Considerations
-
-### Current Implementation
-
-- CORS enabled for cross-origin requests
-- Input validation for all user inputs
-- No authentication (development environment)
-
-### Production Recommendations
-
-- Add JWT-based authentication
-- Implement rate limiting
-- Encrypt sensitive data in MongoDB
-- Use TLS for all connections
-- Add API key management
-- Implement request signing
 
 ## Performance Metrics
 
@@ -385,19 +369,3 @@ Elasticsearch
 - **Logging Service**: ~5000 logs/second
 - **End-to-End Latency**: <500ms (router to delivery)
 
-### Bottlenecks
-
-1. MongoDB writes (can be optimized with bulk operations)
-2. Elasticsearch indexing (can be batched)
-3. RabbitMQ queue depth (monitor and scale consumers)
-
-## Future Enhancements
-
-1. **Rate Limiting**: Per-recipient message throttling
-2. **Priority Queues**: High-priority message handling
-3. **Webhooks**: Delivery status callbacks
-4. **Batch Processing**: Bulk message sending
-5. **Circuit Breakers**: Fault tolerance patterns
-6. **Message Templates**: Reusable message templates
-7. **Analytics Dashboard**: Real-time metrics visualization
-8. **Multi-tenancy**: Support for multiple organizations
