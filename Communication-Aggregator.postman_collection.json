@@ -1,0 +1,361 @@
+{
+  "info": {
+    "name": "Communication Aggregator System",
+    "description": "API collection for testing the Communication Aggregator microservices",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "query {\n  health\n}",
+            "variables": ""
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/graphql",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["graphql"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Send Email Message",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation SendMessage($input: MessageInput!) {\n  sendMessage(input: $input) {\n    success\n    messageId\n    traceId\n    message\n  }\n}",
+            "variables": "{\n  \"input\": {\n    \"channel\": \"email\",\n    \"recipient\": \"john.doe@example.com\",\n    \"subject\": \"Welcome to Our Platform\",\n    \"body\": \"Thank you for signing up! We're excited to have you on board.\",\n    \"metadata\": {\n      \"userId\": \"12345\",\n      \"campaignId\": \"welcome-2024\",\n      \"tags\": [\"onboarding\", \"welcome\"]\n    }\n  }\n}"
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/graphql",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["graphql"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Send SMS Message",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation SendMessage($input: MessageInput!) {\n  sendMessage(input: $input) {\n    success\n    messageId\n    traceId\n    message\n  }\n}",
+            "variables": "{\n  \"input\": {\n    \"channel\": \"sms\",\n    \"recipient\": \"+1234567890\",\n    \"body\": \"Your verification code is: 123456. Valid for 5 minutes.\",\n    \"metadata\": {\n      \"type\": \"otp\",\n      \"expiresIn\": 300,\n      \"attemptId\": \"att_789xyz\"\n    }\n  }\n}"
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/graphql",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["graphql"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Send WhatsApp Message",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation SendMessage($input: MessageInput!) {\n  sendMessage(input: $input) {\n    success\n    messageId\n    traceId\n    message\n  }\n}",
+            "variables": "{\n  \"input\": {\n    \"channel\": \"whatsapp\",\n    \"recipient\": \"+1234567890\",\n    \"body\": \"Your order #ORD123 has been shipped! Track it here: https://track.example.com/ORD123\",\n    \"metadata\": {\n      \"orderId\": \"ORD123\",\n      \"trackingUrl\": \"https://track.example.com/ORD123\",\n      \"deliveryDate\": \"2024-12-05\"\n    }\n  }\n}"
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/graphql",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["graphql"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Send Duplicate Message (Should Fail)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation SendMessage($input: MessageInput!) {\n  sendMessage(input: $input) {\n    success\n    messageId\n    traceId\n    message\n  }\n}",
+            "variables": "{\n  \"input\": {\n    \"channel\": \"email\",\n    \"recipient\": \"john.doe@example.com\",\n    \"subject\": \"Welcome to Our Platform\",\n    \"body\": \"Thank you for signing up! We're excited to have you on board.\",\n    \"metadata\": {\n      \"userId\": \"12345\",\n      \"campaignId\": \"welcome-2024\"\n    }\n  }\n}"
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/graphql",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["graphql"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Invalid Email Format (Should Fail)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation SendMessage($input: MessageInput!) {\n  sendMessage(input: $input) {\n    success\n    messageId\n    traceId\n    message\n  }\n}",
+            "variables": "{\n  \"input\": {\n    \"channel\": \"email\",\n    \"recipient\": \"invalid-email\",\n    \"subject\": \"Test\",\n    \"body\": \"This should fail due to invalid email\"\n  }\n}"
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/graphql",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["graphql"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Missing Subject for Email (Should Fail)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation SendMessage($input: MessageInput!) {\n  sendMessage(input: $input) {\n    success\n    messageId\n    traceId\n    message\n  }\n}",
+            "variables": "{\n  \"input\": {\n    \"channel\": \"email\",\n    \"recipient\": \"test@example.com\",\n    \"body\": \"This should fail because subject is missing\"\n  }\n}"
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/graphql",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["graphql"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Bulk Send - Multiple Channels",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation SendMessage($input: MessageInput!) {\n  sendMessage(input: $input) {\n    success\n    messageId\n    traceId\n    message\n  }\n}",
+            "variables": "{\n  \"input\": {\n    \"channel\": \"email\",\n    \"recipient\": \"bulk-user-{{$randomInt}}@example.com\",\n    \"subject\": \"Notification {{$timestamp}}\",\n    \"body\": \"This is a bulk notification message sent at {{$isoTimestamp}}\",\n    \"metadata\": {\n      \"batchId\": \"batch_{{$randomUUID}}\",\n      \"priority\": \"high\"\n    }\n  }\n}"
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/graphql",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["graphql"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delivery Service - Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4001/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4001",
+          "path": ["health"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delivery Service - Get Message by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4001/messages/:messageId",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4001",
+          "path": ["messages", ":messageId"],
+          "variable": [
+            {
+              "key": "messageId",
+              "value": "msg_example123"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delivery Service - Get All Messages",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4001/messages?page=1&limit=10",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4001",
+          "path": ["messages"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Logging Service - Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4002/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4002",
+          "path": ["health"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Logging Service - Get Logs by Trace ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4002/logs/trace/:traceId",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4002",
+          "path": ["logs", "trace", ":traceId"],
+          "variable": [
+            {
+              "key": "traceId",
+              "value": "trace_example123"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Logging Service - Search Logs",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"service\": \"router\",\n  \"level\": \"info\",\n  \"size\": 50\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4002/logs/search",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4002",
+          "path": ["logs", "search"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Logging Service - Get Statistics",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4002/logs/stats",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4002",
+          "path": ["logs", "stats"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
