@@ -458,16 +458,6 @@ LOG_LEVEL=info
 - **Scalability**: Horizontal scaling supported for all services
 - **Resilience**: Automatic retries, dead-letter queues, circuit breakers
 
-## Future Enhancements
-
-- [ ] Add rate limiting per recipient
-- [ ] Implement priority queues
-- [ ] Add webhook support for delivery status
-- [ ] Implement batch message processing
-- [ ] Add Prometheus metrics
-- [ ] Implement circuit breakers
-- [ ] Add message templating engine
-
 ## License
 
 MIT
